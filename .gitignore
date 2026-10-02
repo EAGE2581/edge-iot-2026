@@ -37,3 +37,9 @@ legacy/
 # ── 日志 ──
 *.log
 logs/
+
+# 证书私钥（绝对不提交）
+certs/
+*.key
+*.crt
+*.pem

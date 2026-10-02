@@ -1,0 +1,21 @@
+[Unit]
+Description=EDGE-IOT-2026 Collector
+After=network.target docker.service
+Wants=docker.service
+
+[Service]
+Type=simple
+User=hldqa
+Group=hldqa
+WorkingDirectory=/home/hldqa/opcua-lab
+ExecStart=/home/hldqa/opcua-lab/venv/bin/python3 collector.py config.yaml
+Restart=always
+RestartSec=3
+TimeoutStartSec=30
+Environment=PYTHONUNBUFFERED=1
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=collector
+
+[Install]
+WantedBy=multi-user.target
