@@ -48,6 +48,8 @@ def write_influx(write_api, bucket, plc_cfg, tag_map, data):
             for key, meta in tag_map.items():
                 if not key.startswith(f"{drive}_"):
                     continue
+                if key not in data["values"]:
+                    continue
                 field_name = key[len(drive) + 1:]
                 val = convert(data["values"][key], meta["type"], rated)
                 point = point.field(field_name, val)

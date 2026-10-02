@@ -4,6 +4,7 @@ import time
 
 from asyncua import Client
 
+from .converter import is_valid
 from .node_builder import build_node_ids
 from .cache import cache_push, cache_pop_for, cache_pop_batch, cache_count_for
 from .transports import publish_mqtt, write_influx, write_alarm_influx
@@ -91,8 +92,11 @@ async def collect_plc(
                     for tag_name, meta in tag_map.items():
                         node = client.get_node(meta["node_id"])
                         value = await node.read_value()
-                        data["values"][tag_name] = value
-
+                        if is_valid(value, meta["type"],
+                                    plc_cfg.get("rated_current", 16.0)):
+                            data["values"][tag_name] = value
+                        else:
+                            print(f"[{name}] 丢弃异常值 {tag_name}={value}")
                     ok_m = publish_mqtt(mqtt_client, plc_cfg["topic"], data)
                     ok_i = write_influx(write_api, bucket, plc_cfg, tag_map, data)
 

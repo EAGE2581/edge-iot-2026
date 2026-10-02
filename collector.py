@@ -8,6 +8,7 @@ from app.cache import init_cache
 from app.transports import make_mqtt, make_influx
 from app.alarm_codes import load_alarm_codes, AlarmDeduper
 from app.notifier import load_notifier
+from app.downsampler import downsample_loop
 from app.worker import collect_plc
 
 
@@ -53,6 +54,11 @@ async def main(config_path, plc_names=None, alarm_path="alarm_codes.yaml"):
         )
         for p in selected
     ]
+
+    tasks.append(asyncio.create_task(
+        downsample_loop(influx_client, cfg["influx"]["bucket"], cfg["influx"]["org"])
+    ))
+
     await asyncio.gather(*tasks)
 
 
