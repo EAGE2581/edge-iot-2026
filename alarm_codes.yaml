@@ -1,0 +1,1515 @@
+# 由 tools/xml2yaml.py 自动生成，勿手工编辑
+# 源文件: alarmlist_g120c_v04714700_chs.xml
+# 报警总数: 303 (F=173, A=125, N=5)
+
+alarms:
+  1000:
+    text: 内部软件错误
+    severity: critical
+    category: fault
+  1001:
+    text: 浮点例外
+    severity: critical
+    category: fault
+  1002:
+    text: 内部软件错误
+    severity: critical
+    category: fault
+  1003:
+    text: 访问存储器时出现应答延迟
+    severity: critical
+    category: fault
+  1004:
+    text: 内部软件错误
+    severity: info
+    category: notice
+    types:
+    - N
+    - F
+    - A
+  1005:
+    text: 文件上传/下载失败
+    severity: critical
+    category: fault
+  1009:
+    text: 'CU: 控制单元过热'
+    severity: warning
+    category: warn
+    types:
+    - A
+    - N
+  1010:
+    text: 驱动类型不明
+    severity: critical
+    category: fault
+  1015:
+    text: 内部软件错误
+    severity: critical
+    category: fault
+  1016:
+    text: 固件被修改
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+  1017:
+    text: 组件列表被更改
+    severity: warning
+    category: warn
+  1018:
+    text: 启动多次中断
+    severity: critical
+    category: fault
+  1019:
+    text: 写入可移动设备失败
+    severity: warning
+    category: warn
+  1020:
+    text: 写 RAM 失败
+    severity: warning
+    category: warn
+  1021:
+    text: 将可移动设备作为电脑的 USB 数据载体使用
+    severity: warning
+    category: warn
+  1023:
+    text: 内部软件超时
+    severity: critical
+    category: fault
+  1028:
+    text: 配置错误
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+  1030:
+    text: 控制权下的生命符号出错
+    severity: critical
+    category: fault
+  1033:
+    text: 单位转换：参考参数无效
+    severity: critical
+    category: fault
+  1034:
+    text: 单位转换：参考值更改后参数值计算失败
+    severity: critical
+    category: fault
+  1035:
+    text: ACX：参数备份文件损坏
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+  1036:
+    text: ACX：缺少参数备份文件
+    severity: critical
+    category: fault
+    types:
+    - F
+    - A
+  1038:
+    text: ACX：载入参数备份文件失败
+    severity: critical
+    category: fault
+    types:
+    - F
+    - A
+  1039:
+    text: ACX：写入参数备份文件失败
+    severity: critical
+    category: fault
+    types:
+    - F
+    - A
+  1040:
+    text: 需要备份参数并重新上电
+    severity: critical
+    category: fault
+  1042:
+    text: 下载项目时的参数出错
+    severity: critical
+    category: fault
+  1043:
+    text: 在项目下载时出现严错误
+    severity: critical
+    category: fault
+  1044:
+    text: CU：描述数据出错
+    severity: critical
+    category: fault
+  1045:
+    text: 设计数据无效
+    severity: warning
+    category: warn
+  1049:
+    text: 无法写入文件
+    severity: warning
+    category: warn
+  1054:
+    text: CU：超出系统极限
+    severity: critical
+    category: fault
+  1064:
+    text: CU：内部错误（CRC）
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+  1066:
+    text: 中间存储器：达到或超出 70% 存储量
+    severity: warning
+    category: warn
+  1067:
+    text: 中间存储器：达到 100% 存储量
+    severity: warning
+    category: warn
+  1068:
+    text: CU：数据存储器溢出
+    severity: critical
+    category: fault
+  1069:
+    text: 参数备份文件和设备不兼容
+    severity: warning
+    category: warn
+  1072:
+    text: 从备份文件中修复存储卡
+    severity: critical
+    category: fault
+  1073:
+    text: 备份文件至存储卡上需要上电
+    severity: warning
+    category: warn
+    types:
+    - A
+    - N
+  1101:
+    text: CU：存储卡不可用
+    severity: info
+    category: notice
+    types:
+    - N
+    - A
+  1105:
+    text: CU：存储器容量不足
+    severity: critical
+    category: fault
+    types:
+    - F
+    - A
+  1107:
+    text: 保存到存储卡失败
+    severity: critical
+    category: fault
+  1112:
+    text: CU：不允许的功率单元
+    severity: critical
+    category: fault
+  1120:
+    text: 初始化端口失败
+    severity: critical
+    category: fault
+    types:
+    - F
+    - A
+  1122:
+    text: 测量探头输入端的频率过高
+    severity: critical
+    category: fault
+    types:
+    - F
+    - A
+  1152:
+    text: CU：驱动对象类型无效
+    severity: critical
+    category: fault
+  1205:
+    text: CU：时间片溢出
+    severity: critical
+    category: fault
+  1250:
+    text: CU：CU-EEPROM 只读数据出错
+    severity: critical
+    category: fault
+  1251:
+    text: CU：CU-EEPROM 读写数据出错
+    severity: warning
+    category: warn
+  1257:
+    text: 'CU: 固件版本太旧'
+    severity: critical
+    category: fault
+  1340:
+    text: 拓扑结构：一个支路上的组件过多
+    severity: critical
+    category: fault
+  1505:
+    text: BICO：无法建立连接
+    severity: critical
+    category: fault
+    types:
+    - F
+    - A
+  1510:
+    text: BICO：信号源不是浮点
+    severity: critical
+    category: fault
+  1511:
+    text: BICO：连接有不同定标
+    severity: critical
+    category: fault
+    types:
+    - F
+    - A
+  1512:
+    text: BICO：没有定标
+    severity: critical
+    category: fault
+  1513:
+    text: BICO：不同驱动对象之间的连接有不同定标
+    severity: critical
+    category: fault
+    types:
+    - F
+    - N
+    - A
+  1514:
+    text: BICO：在重新连接期间写入时出错
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+  1515:
+    text: 'BICO: 不允许写入参数，因为控制权有效'
+    severity: critical
+    category: fault
+    types:
+    - F
+    - A
+  1590:
+    text: 驱动：电机维修间隔到期
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+  1600:
+    text: 'SI P1 (CU): STOP A 被触发'
+    severity: critical
+    category: fault
+  1611:
+    text: 'SI P1 (CU): 某一监控通道故障'
+    severity: critical
+    category: fault
+    types:
+    - F
+    - A
+  1620:
+    text: 'SI P1 (CU): Safe Torque Off 激活'
+    severity: info
+    category: notice
+    types:
+    - N
+    - F
+    - A
+  1625:
+    text: SI P1 (CU)：安全数据中生命符号出错
+    severity: critical
+    category: fault
+  1640:
+    text: SI P1 (CU)：识别出组件更换并需应答/保存
+    severity: critical
+    category: fault
+  1641:
+    text: SI P1 (CU)：识别出组件更换并需保存
+    severity: critical
+    category: fault
+  1649:
+    text: 'SI P1 (CU): 内部软件错误'
+    severity: critical
+    category: fault
+  1650:
+    text: 'SI P1 (CU): 必须进行验收测试'
+    severity: critical
+    category: fault
+  1651:
+    text: SI P1 (CU)：安全时间片同步失败
+    severity: critical
+    category: fault
+  1653:
+    text: 'SI P1 (CU): PROFIBUS/PROFINET 配置出错'
+    severity: critical
+    category: fault
+  1654:
+    text: 'SI P1 (CU): PROFIsafe 配置有差异'
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+  1655:
+    text: SI P1 (CU)：监控功能的对比
+    severity: critical
+    category: fault
+  1656:
+    text: SI P1 (CU):处理器2参数出错
+    severity: critical
+    category: fault
+  1658:
+    text: 'SI P1 (CU): PROFIsafe 报文号不适合'
+    severity: critical
+    category: fault
+  1659:
+    text: SI P1 (CU)：参数的写入任务被拒绝
+    severity: critical
+    category: fault
+  1660:
+    text: SI P1 (CU)：不支持安全功能
+    severity: critical
+    category: fault
+  1662:
+    text: 内部通讯故障
+    severity: critical
+    category: fault
+  1663:
+    text: SI P1 (CU)：SI 参数复制被拒绝
+    severity: critical
+    category: fault
+  1665:
+    text: 'SI P1 (CU): 系统故障'
+    severity: critical
+    category: fault
+  1678:
+    text: SI：需执行“通过功率模块端子执行STO”的强制故障检查
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+  1693:
+    text: SI P1 (CU)：安全参数已修改，需要上电
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+  1698:
+    text: 'SI P1 (CU): 调试模式激活'
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+  1699:
+    text: 'SI P1 (CU): 需执行STO的强制故障检查'
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+  1788:
+    text: SI：自动强制故障检查等待通过运动监控取消 STO
+    severity: warning
+    category: warn
+  1790:
+    text: SI：启动因通过端子的STO中止
+    severity: warning
+    category: warn
+  1796:
+    text: 'SI P1 (CU): 等待通讯'
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+    - N
+  1900:
+    text: PROFIBUS：配置报文出错
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+  1910:
+    text: 现场总线 SS 设定值超时
+    severity: critical
+    category: fault
+    types:
+    - F
+    - N
+    - A
+  1920:
+    text: PROFIBUS：循环连接中断
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+  1945:
+    text: PROFIBUS：和发布方的连接故障
+    severity: warning
+    category: warn
+  1946:
+    text: PROFIBUS：和发布方的连接中断
+    severity: critical
+    category: fault
+    types:
+    - F
+    - A
+  1951:
+    text: 'CU SYNC: 缺少同步应用周期'
+    severity: critical
+    category: fault
+  1953:
+    text: 'CU SYNC: 同步未结束'
+    severity: warning
+    category: warn
+  2050:
+    text: 跟踪：无法启动
+    severity: warning
+    category: warn
+  2051:
+    text: 跟踪：因专有技术保护无法进行记录
+    severity: warning
+    category: warn
+  2055:
+    text: 跟踪：记录时间过短
+    severity: warning
+    category: warn
+  2056:
+    text: 跟踪：记录周期过短
+    severity: warning
+    category: warn
+  2057:
+    text: 跟踪：时间片周期无效
+    severity: warning
+    category: warn
+  2058:
+    text: 跟踪：循环跟踪的时间片周期无效
+    severity: warning
+    category: warn
+  2059:
+    text: 跟踪：2 x 8 记录通道的时间片周期无效
+    severity: warning
+    category: warn
+  2060:
+    text: 跟踪：缺少需要记录的信号
+    severity: warning
+    category: warn
+  2061:
+    text: 跟踪：信号无效
+    severity: warning
+    category: warn
+  2062:
+    text: 跟踪：触发器信号无效
+    severity: warning
+    category: warn
+  2063:
+    text: 跟踪：数据类型无效
+    severity: warning
+    category: warn
+  2070:
+    text: 跟踪：参数不可更改
+    severity: warning
+    category: warn
+  2075:
+    text: 跟踪：预触发时间过长
+    severity: warning
+    category: warn
+  2080:
+    text: 跟踪：参数设置由于单位转换被删除
+    severity: critical
+    category: fault
+  2095:
+    text: MTrace 0：无法激活多次跟踪
+    severity: warning
+    category: warn
+  2096:
+    text: MTrace 0：无法保存
+    severity: warning
+    category: warn
+  2097:
+    text: MTrace 1：无法激活多次跟踪
+    severity: warning
+    category: warn
+  2098:
+    text: MTrace 1：无法进行保存
+    severity: warning
+    category: warn
+  2099:
+    text: 跟踪：控制单元的存储空间不足
+    severity: warning
+    category: warn
+  2150:
+    text: OA：应用程序无法载入
+    severity: warning
+    category: warn
+  2151:
+    text: 'OA: 内部软件错误'
+    severity: critical
+    category: fault
+    types:
+    - F
+    - A
+  2152:
+    text: 'OA: 存储器容量不够'
+    severity: critical
+    category: fault
+    types:
+    - F
+    - A
+  3000:
+    text: 操作时的 NVRAM 错误
+    severity: critical
+    category: fault
+  3001:
+    text: NVRAM 校验和出错
+    severity: critical
+    category: fault
+  3505:
+    text: 模拟输入端断线
+    severity: critical
+    category: fault
+    types:
+    - F
+    - N
+    - A
+  3510:
+    text: 校准数据不合理
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+    - N
+  5000:
+    text: 功率单元：逆变器散热器过热
+    severity: warning
+    category: warn
+    types:
+    - A
+    - N
+  5001:
+    text: 功率单元：绝缘层芯片过热
+    severity: warning
+    category: warn
+    types:
+    - A
+    - N
+  5002:
+    text: 功率单元：进风过热
+    severity: warning
+    category: warn
+    types:
+    - A
+    - N
+  5004:
+    text: 功率单元：整流器过热
+    severity: warning
+    category: warn
+    types:
+    - A
+    - N
+  5006:
+    text: 功率单元：热模型过热
+    severity: warning
+    category: warn
+    types:
+    - A
+    - N
+  5065:
+    text: 电压测量值不合理
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+    - N
+  6310:
+    text: 输入电压(p0210)参数设定错误
+    severity: critical
+    category: fault
+    types:
+    - F
+    - A
+  6921:
+    text: 制动电阻相位不对称
+    severity: warning
+    category: warn
+    types:
+    - A
+    - N
+  6922:
+    text: 制动电阻断相
+    severity: critical
+    category: fault
+  7011:
+    text: 驱动：电机超温
+    severity: critical
+    category: fault
+  7012:
+    text: 驱动：电机温度模型 1/3 超温
+    severity: warning
+    category: warn
+    types:
+    - A
+    - N
+  7014:
+    text: 驱动：电机温度模型配置报警
+    severity: warning
+    category: warn
+    types:
+    - A
+    - N
+  7015:
+    text: 驱动：电机温度传感器的报警信息
+    severity: warning
+    category: warn
+  7016:
+    text: 驱动：电机温度传感器的故障信息
+    severity: critical
+    category: fault
+  7080:
+    text: 驱动：闭环控制参数出错
+    severity: critical
+    category: fault
+  7082:
+    text: 宏文件：无法执行
+    severity: critical
+    category: fault
+  7083:
+    text: 宏文件：找不到 ACX 文件
+    severity: critical
+    category: fault
+  7084:
+    text: 宏文件：未满足 WaitUntil 的条件
+    severity: critical
+    category: fault
+  7086:
+    text: '单位转换: 由于参考值改变而超出参数极限'
+    severity: critical
+    category: fault
+  7088:
+    text: '单位转换: 由于单位转换而超出参数极限'
+    severity: critical
+    category: fault
+  7089:
+    text: 单位转换： 转换单位后不能激活功能块
+    severity: warning
+    category: warn
+  7092:
+    text: 驱动：惯性评估器还未完成
+    severity: warning
+    category: warn
+  7094:
+    text: 常见参数超限
+    severity: warning
+    category: warn
+  7200:
+    text: 驱动：控制权发出 ON 指令
+    severity: warning
+    category: warn
+  7220:
+    text: 驱动：缺少“通过PLC控制”
+    severity: critical
+    category: fault
+    types:
+    - F
+    - N
+    - A
+  7320:
+    text: 驱动：自动重启中断
+    severity: critical
+    category: fault
+  7321:
+    text: 驱动：自动重启激活
+    severity: warning
+    category: warn
+  7330:
+    text: 捕捉再启动：测得的搜索电流过小
+    severity: critical
+    category: fault
+  7331:
+    text: '捕捉再启动: 不支持该功能'
+    severity: critical
+    category: fault
+  7332:
+    text: 捕捉再启动：降低最大转速
+    severity: critical
+    category: fault
+  7352:
+    text: 驱动：限位开关信号不合理
+    severity: warning
+    category: warn
+  7400:
+    text: 驱动：最大直流母线电压控制器生效
+    severity: warning
+    category: warn
+    types:
+    - A
+    - N
+  7401:
+    text: 驱动：最大直流母线电压控制器关闭
+    severity: warning
+    category: warn
+    types:
+    - A
+    - N
+  7402:
+    text: 驱动：最小直流母线电压控制器生效
+    severity: warning
+    category: warn
+    types:
+    - A
+    - N
+  7404:
+    text: 驱动：直流母线电压阈值上限
+    severity: critical
+    category: fault
+  7405:
+    text: 驱动：低于动能缓冲下的最低转速
+    severity: critical
+    category: fault
+    types:
+    - F
+    - N
+    - A
+  7406:
+    text: 驱动：超出动能缓冲状态下最大持续时间
+    severity: critical
+    category: fault
+    types:
+    - F
+    - N
+    - A
+  7409:
+    text: 驱动：V/f控制电流限值控制器生效
+    severity: warning
+    category: warn
+    types:
+    - A
+    - N
+  7410:
+    text: 驱动：电流环输出受限
+    severity: critical
+    category: fault
+  7426:
+    text: 工艺控制器实际值达到极限值
+    severity: critical
+    category: fault
+    types:
+    - F
+    - A
+  7428:
+    text: 工艺控制器参数设置错误
+    severity: warning
+    category: warn
+    types:
+    - A
+    - N
+  7435:
+    text: 驱动：无编码器的矢量控制，斜坡函数发生器设置错误
+    severity: critical
+    category: fault
+    types:
+    - F
+    - N
+  7444:
+    text: PID 自动优化激活
+    severity: warning
+    category: warn
+  7445:
+    text: PID 自动优化中断
+    severity: critical
+    category: fault
+  7530:
+    text: 驱动：驱动数据组 DDS 不存在
+    severity: warning
+    category: warn
+  7531:
+    text: 驱动：指令数据组 CDS 不存在
+    severity: warning
+    category: warn
+  7754:
+    text: 驱动：断流阀配置错误
+    severity: critical
+    category: fault
+  7800:
+    text: 驱动：没有功率单元
+    severity: critical
+    category: fault
+  7801:
+    text: 驱动：电机过电流
+    severity: critical
+    category: fault
+  7802:
+    text: 驱动：整流单元或者功率单元未就绪
+    severity: critical
+    category: fault
+  7805:
+    text: 驱动：功率单元过载 I2t
+    severity: warning
+    category: warn
+    types:
+    - A
+    - N
+  7807:
+    text: 驱动：检测出短路/接地
+    severity: critical
+    category: fault
+  7810:
+    text: 驱动：功率单元 EEPROM 无额定数据
+    severity: critical
+    category: fault
+  7850:
+    text: 外部报警 1
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+  7860:
+    text: 外部故障 1
+    severity: critical
+    category: fault
+    types:
+    - F
+    - A
+  7891:
+    text: 驱动：泵/风机堵转监控
+    severity: warning
+    category: warn
+  7892:
+    text: 驱动：泵/风机无负载监控
+    severity: warning
+    category: warn
+  7893:
+    text: 驱动：泵漏液监控
+    severity: warning
+    category: warn
+  7894:
+    text: 驱动：泵/风机堵转监控
+    severity: critical
+    category: fault
+  7895:
+    text: 驱动：泵/风机无负载监控
+    severity: critical
+    category: fault
+  7896:
+    text: 驱动：泵漏液监控
+    severity: critical
+    category: fault
+  7900:
+    text: 驱动：电机堵转
+    severity: critical
+    category: fault
+    types:
+    - F
+    - N
+    - A
+  7901:
+    text: 驱动：电机转速过快
+    severity: critical
+    category: fault
+  7902:
+    text: 驱动：电机失步
+    severity: critical
+    category: fault
+    types:
+    - F
+    - N
+    - A
+  7910:
+    text: 驱动：电机超温
+    severity: warning
+    category: warn
+    types:
+    - A
+    - N
+  7927:
+    text: 直流制动生效
+    severity: warning
+    category: warn
+  7929:
+    text: 驱动：检测不出电机
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+  7950:
+    text: 电机参数错误
+    severity: critical
+    category: fault
+    types:
+    - F
+    - A
+  7960:
+    text: 驱动：摩擦特性曲线出错
+    severity: warning
+    category: warn
+  7961:
+    text: 驱动：摩擦特性曲线记录激活
+    severity: warning
+    category: warn
+  7963:
+    text: 驱动：摩擦特性曲线记录取消
+    severity: critical
+    category: fault
+  7967:
+    text: 驱动：磁极位置检测出错
+    severity: critical
+    category: fault
+  7968:
+    text: 驱动：Lq-Ld 测量出错
+    severity: critical
+    category: fault
+  7969:
+    text: 驱动：磁极位置检测出错
+    severity: critical
+    category: fault
+  7980:
+    text: 驱动：旋转检测激活
+    severity: warning
+    category: warn
+  7981:
+    text: 驱动：旋转检测缺少使能
+    severity: warning
+    category: warn
+  7983:
+    text: 驱动：旋转检测饱和特性曲线
+    severity: critical
+    category: fault
+  7984:
+    text: 驱动：转速环优化，转动惯量异常
+    severity: critical
+    category: fault
+  7985:
+    text: 驱动：转速环优化（振荡测试）
+    severity: critical
+    category: fault
+  7986:
+    text: 驱动：旋转检测，斜坡函数发生器异常
+    severity: critical
+    category: fault
+  7988:
+    text: 驱动：旋转检测未选择配置
+    severity: critical
+    category: fault
+  7990:
+    text: 驱动：电机数据检测出错
+    severity: critical
+    category: fault
+  7991:
+    text: 驱动：电机数据检测激活
+    severity: warning
+    category: warn
+    types:
+    - A
+    - N
+  7994:
+    text: 驱动：未执行电机数据检测
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+    - N
+  8010:
+    text: CU：模拟数字转换器
+    severity: critical
+    category: fault
+    types:
+    - F
+    - N
+    - A
+  8501:
+    text: PROFINET：设定值超时
+    severity: critical
+    category: fault
+    types:
+    - F
+    - N
+    - A
+  8502:
+    text: PROFINET：生命符号监控时间结束
+    severity: critical
+    category: fault
+    types:
+    - F
+    - A
+  8511:
+    text: PROFINET：接收配置数据无效
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+  8526:
+    text: PROFINET：没有循环连接
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+  8564:
+    text: PN/COMM BOARD：配置文件的句法错误
+    severity: warning
+    category: warn
+  8565:
+    text: PROFINET：设置参数的一致性错误
+    severity: warning
+    category: warn
+  8700:
+    text: CAN：通讯故障
+    severity: critical
+    category: fault
+    types:
+    - F
+    - A
+  8701:
+    text: CAN：NMT状态切换
+    severity: critical
+    category: fault
+  8702:
+    text: 'CAN: RPDO 超时'
+    severity: critical
+    category: fault
+    types:
+    - F
+    - A
+  8751:
+    text: CAN：报文丢失
+    severity: warning
+    category: warn
+    types:
+    - A
+    - N
+  8752:
+    text: CAN：超出无源故障的故障计数器
+    severity: warning
+    category: warn
+  8753:
+    text: CAN：信息缓冲器溢出
+    severity: warning
+    category: warn
+  8754:
+    text: CAN：通讯模式故障
+    severity: warning
+    category: warn
+  8755:
+    text: CAN：对象不可映射
+    severity: warning
+    category: warn
+  8756:
+    text: CAN：超出映射的字节数
+    severity: warning
+    category: warn
+  8757:
+    text: CAN：COB-ID 设置无效
+    severity: warning
+    category: warn
+  8759:
+    text: CAN：PDO COB-ID 已存在
+    severity: warning
+    category: warn
+  8760:
+    text: CAN：超出 IF PZD 最大数量
+    severity: warning
+    category: warn
+  8800:
+    text: PROFIenergy 节能模式生效
+    severity: warning
+    category: warn
+  13009:
+    text: OA 应用程序许可未授权
+    severity: critical
+    category: fault
+  13100:
+    text: 专有技术保护：复制保护故障
+    severity: critical
+    category: fault
+  13101:
+    text: 专有技术保护：复制保护无法激活
+    severity: critical
+    category: fault
+  13102:
+    text: 专有技术保护：受保护数据的一致性错误
+    severity: critical
+    category: fault
+  30001:
+    text: 功率单元：过电流
+    severity: critical
+    category: fault
+  30002:
+    text: 功率单元：直流母线过电压
+    severity: critical
+    category: fault
+  30003:
+    text: 功率单元：直流母线欠压
+    severity: critical
+    category: fault
+  30004:
+    text: 功率单元：逆变器散热器过热
+    severity: critical
+    category: fault
+  30005:
+    text: 功率单元：I2t 过载
+    severity: critical
+    category: fault
+  30011:
+    text: 功率单元：主电路中存在断相
+    severity: critical
+    category: fault
+  30012:
+    text: 功率单元：散热器温度传感器断线
+    severity: critical
+    category: fault
+  30013:
+    text: 功率单元：散热器温度传感器短路
+    severity: critical
+    category: fault
+  30015:
+    text: 功率单元：电机馈电电缆断相
+    severity: critical
+    category: fault
+    types:
+    - F
+    - N
+    - A
+  30016:
+    text: 功率单元：加载电源关闭
+    severity: warning
+    category: warn
+    types:
+    - A
+    - N
+  30017:
+    text: 功率单元：硬件电流限制响应过于频繁
+    severity: critical
+    category: fault
+  30021:
+    text: 功率单元：接地
+    severity: critical
+    category: fault
+  30022:
+    text: 功率单元：U_ce 监控
+    severity: critical
+    category: fault
+  30024:
+    text: 功率单元：热模型过热
+    severity: critical
+    category: fault
+  30025:
+    text: 功率单元：芯片过热
+    severity: critical
+    category: fault
+  30027:
+    text: 功率单元：直流母线预充电时间监控
+    severity: critical
+    category: fault
+  30030:
+    text: 功率单元：内部空间超温报警
+    severity: warning
+    category: warn
+  30031:
+    text: 功率单元：U 相位的硬件电流限制响应
+    severity: warning
+    category: warn
+  30032:
+    text: 功率单元：V 相位的硬件电流限制响应
+    severity: warning
+    category: warn
+  30033:
+    text: 功率单元：W 相位的硬件电流限制响应
+    severity: warning
+    category: warn
+  30034:
+    text: 功率单元：内部空间过热
+    severity: warning
+    category: warn
+  30035:
+    text: 功率单元：进风过热
+    severity: critical
+    category: fault
+  30036:
+    text: 功率单元：内部空间过热
+    severity: critical
+    category: fault
+  30037:
+    text: 功率单元：整流器过热
+    severity: critical
+    category: fault
+  30042:
+    text: 功率单元：风扇达到了最大运行时间
+    severity: warning
+    category: warn
+  30049:
+    text: 功率单元：内部风扇损坏
+    severity: warning
+    category: warn
+  30051:
+    text: 功率单元：识别到电机抱闸短路
+    severity: critical
+    category: fault
+  30052:
+    text: EEPROM 数据错误
+    severity: critical
+    category: fault
+  30054:
+    text: 功率单元：打开制动时欠电压
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+    - N
+  30055:
+    text: 功率单元：制动削波器过电流
+    severity: critical
+    category: fault
+  30057:
+    text: 功率单元：电源不对称
+    severity: warning
+    category: warn
+  30059:
+    text: 功率单元：内部风扇损坏
+    severity: critical
+    category: fault
+  30065:
+    text: 电压测量值不合理
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+    - N
+  30068:
+    text: 功率单元：逆变器散热器欠温
+    severity: critical
+    category: fault
+  30071:
+    text: 功率模块没有接收到新的实际值
+    severity: critical
+    category: fault
+  30072:
+    text: 不可再向功率模块传设定值
+    severity: critical
+    category: fault
+  30074:
+    text: 控制单元和功率模块之间的通讯出现故障
+    severity: critical
+    category: fault
+    types:
+    - F
+    - A
+  30075:
+    text: 功率单元配置失败
+    severity: critical
+    category: fault
+  30080:
+    text: 功率单元：电流提升过快
+    severity: critical
+    category: fault
+  30081:
+    text: 功率单元：开关操作过于频繁
+    severity: critical
+    category: fault
+  30105:
+    text: 功率单元：实际值采集出错
+    severity: critical
+    category: fault
+  30502:
+    text: 功率单元：直流母线过电压
+    severity: warning
+    category: warn
+  30600:
+    text: SI P2：STOP A 被触发
+    severity: critical
+    category: fault
+  30611:
+    text: 'SI P2: 某一监控通道故障'
+    severity: critical
+    category: fault
+    types:
+    - F
+    - A
+  30620:
+    text: 'SI P2: Safe Torque Off 激活'
+    severity: info
+    category: notice
+    types:
+    - N
+    - F
+    - A
+  30625:
+    text: SI P2：在安全数据中生命符号出错
+    severity: critical
+    category: fault
+  30649:
+    text: 'SI P2: 内部软件错误'
+    severity: critical
+    category: fault
+  30650:
+    text: 'SI P2: 必须进行验收测试'
+    severity: critical
+    category: fault
+  30651:
+    text: SI P2：与控制单元的同步失败
+    severity: critical
+    category: fault
+  30655:
+    text: SI P2：监控功能的对比
+    severity: critical
+    category: fault
+  30656:
+    text: SI P2:处理器2参数出错
+    severity: critical
+    category: fault
+  30659:
+    text: SI P2：参数的写入任务被拒绝
+    severity: critical
+    category: fault
+  30662:
+    text: 内部通讯故障
+    severity: critical
+    category: fault
+  30664:
+    text: 启动阶段出现故障
+    severity: critical
+    category: fault
+  30665:
+    text: 'SI P2: 系统故障'
+    severity: critical
+    category: fault
+  30693:
+    text: SI P2：安全参数已修改，需要重新上电
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+  30788:
+    text: 自动测试停止：等待通过 SMM 取消 STO
+    severity: warning
+    category: warn
+  30800:
+    text: 功率单元：综合信息
+    severity: info
+    category: notice
+    types:
+    - N
+    - F
+  30802:
+    text: 功率单元：时间片溢出
+    severity: critical
+    category: fault
+  30804:
+    text: 功率单元：CRC
+    severity: critical
+    category: fault
+    types:
+    - F
+    - N
+    - A
+  30805:
+    text: 功率单元：EEPROM 校验和不正确
+    severity: critical
+    category: fault
+  30809:
+    text: 功率单元：开关信息无效
+    severity: critical
+    category: fault
+  30810:
+    text: 功率单元：看门狗计时器
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+  30850:
+    text: 功率单元：内部软件错误
+    severity: critical
+    category: fault
+  30903:
+    text: 功率单元：出现 I2C 总线故障
+    severity: critical
+    category: fault
+  30920:
+    text: 温度传感器故障
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+  30950:
+    text: 功率单元：内部软件错误
+    severity: critical
+    category: fault
+  30999:
+    text: 功率单元：不明报警
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+    - N
+  35950:
+    text: TM：内部软件错误
+    severity: critical
+    category: fault
+  50001:
+    text: PROFINET 配置错误
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+  50010:
+    text: PROFINET：设置参数的一致性错误
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+  50011:
+    text: EtherNet/IP：配置错误
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+  50020:
+    text: 'PROFINET: 缺少第二个控制器'
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+  50510:
+    text: FBLOCKS：执行周期组的录入被拒绝
+    severity: critical
+    category: fault
+  50511:
+    text: FBLOCKS：没有存储空间可用于自由功能块
+    severity: critical
+    category: fault
+  50513:
+    text: FBLOCKS：顺序值已设定
+    severity: warning
+    category: warn
+    types:
+    - A
+    - F
+  50517:
+    text: FBLOCKS：内部测量当前有效
+    severity: warning
+    category: warn
+  50518:
+    text: FBLOCKS:自由执行周期组采样时间下载偏差
+    severity: critical
+    category: fault
