@@ -37,7 +37,13 @@ async def main(config_path, plc_names=None, alarm_path="alarm_codes.yaml"):
     else:
         print("[*] 钉钉推送未启用")
 
-    mqtt_client = make_mqtt(cfg["mqtt"]["host"], cfg["mqtt"]["port"])
+
+    mqtt_client = make_mqtt(
+        cfg["mqtt"]["host"],
+        cfg["mqtt"]["port"],
+        tls_cfg=cfg["mqtt"].get("tls"),
+    )
+
     influx_client, write_api = make_influx(
         cfg["influx"]["url"], cfg["influx"]["token"], cfg["influx"]["org"]
     )

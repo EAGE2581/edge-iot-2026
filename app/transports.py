@@ -8,11 +8,34 @@ from influxdb_client.client.write_api import SYNCHRONOUS
 from .converter import convert
 
 
-def make_mqtt(host, port=1883, keepalive=60):
+def make_mqtt(host, port=1883, keepalive=60, tls_cfg=None):
+    """建 MQTT 客户端并连接。
+
+    tls_cfg 为 None 时用明文连接；
+    否则传 dict，包含 enabled/ca/cert/key 四个字段。
+    """
     client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+
+    if tls_cfg and tls_cfg.get("enabled"):
+        import ssl
+        ctx = ssl.create_default_context(cafile=tls_cfg["ca"])
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_REQUIRED
+        ctx.load_cert_chain(certfile=tls_cfg["cert"], keyfile=tls_cfg["key"])
+        client.tls_set_context(ctx)
+
     client.connect(host, port, keepalive)
     client.loop_start()
     return client
+
+
+
+
+
+
+
+
+
 
 
 def make_influx(url, token, org):
