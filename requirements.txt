@@ -1,0 +1,6 @@
+asyncua==2.0.1
+influxdb-client==1.50.0
+paho-mqtt==2.1.0
+psutil==7.2.2
+PyYAML==6.0.3
+requests==2.34.2
