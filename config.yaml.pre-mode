@@ -1,0 +1,88 @@
+mqtt:
+  host: "localhost"
+  port: 8883
+  tls:
+    enabled: true
+    ca: "/home/hldqa/opcua-lab/certs/ca.crt"
+    cert: "/home/hldqa/opcua-lab/certs/client.crt"
+    key: "/home/hldqa/opcua-lab/certs/client.key"
+
+
+
+
+
+
+influx:
+  url: "http://localhost:8086"
+  token: "edge-lab-admin-token-2026-secret"
+  org: "edge-lab"
+  bucket: "industrial_data"
+
+profiles:
+  sj:
+    mode: "udt_array"
+    interval: 5
+    rated_current: 16.0
+    udt_start_base: 16
+    udt_start_step: 12
+    fields:
+      - {name: "zsw1",        offset: 2,  type: "raw"}
+      - {name: "nist_a",      offset: 4,  type: "speed"}
+      - {name: "iatst_glatt", offset: 5,  type: "current"}
+      - {name: "mist_glatt",  offset: 6,  type: "raw"}
+      - {name: "warn_code",   offset: 7,  type: "raw"}
+      - {name: "fault_code",  offset: 8,  type: "raw"}
+      - {name: "motor_temp",  offset: 9,  type: "temp"}
+      - {name: "udc",         offset: 10, type: "raw"}
+      - {name: "u_out",       offset: 11, type: "raw"}
+
+  lh:
+    mode: "udt_array"
+    interval: 5
+    rated_current: 16.0
+    udt_start_base: 16
+    udt_start_step: 9
+    fields:
+      - {name: "zsw1",        offset: 2,  type: "raw"}
+      - {name: "nist_a",      offset: 4,  type: "speed"}
+      - {name: "iatst_glatt", offset: 5,  type: "current"}
+      - {name: "mist_glatt",  offset: 6,  type: "raw"}
+      - {name: "warn_code",   offset: 7,  type: "raw"}
+      - {name: "fault_code",  offset: 8,  type: "raw"}
+
+plcs:
+  - {name: "sj_line1_plc1",  profile: "sj", url: "opc.tcp://192.168.21.1:4840",  topic: "factory/sj/line1/plc1/data",  drive_count: 4}
+  - {name: "sj_line1_plc2",  profile: "sj", url: "opc.tcp://192.168.21.7:4840",  topic: "factory/sj/line1/plc2/data",  drive_count: 6}
+  - {name: "sj_line2_plc1",  profile: "sj", url: "opc.tcp://192.168.22.1:4840",  topic: "factory/sj/line2/plc1/data",  drive_count: 4}
+  - {name: "sj_line2_plc2",  profile: "sj", url: "opc.tcp://192.168.22.7:4840",  topic: "factory/sj/line2/plc2/data",  drive_count: 6}
+  - {name: "sj_line3_plc1",  profile: "sj", url: "opc.tcp://192.168.23.1:4840",  topic: "factory/sj/line3/plc1/data",  drive_count: 4}
+  - {name: "sj_line3_plc2",  profile: "sj", url: "opc.tcp://192.168.23.7:4840",  topic: "factory/sj/line3/plc2/data",  drive_count: 6}
+  - {name: "sj_line4_plc1",  profile: "sj", url: "opc.tcp://192.168.24.1:4840",  topic: "factory/sj/line4/plc1/data",  drive_count: 4}
+  - {name: "sj_line4_plc2",  profile: "sj", url: "opc.tcp://192.168.24.7:4840",  topic: "factory/sj/line4/plc2/data",  drive_count: 6}
+  - {name: "sj_line5_plc1",  profile: "sj", url: "opc.tcp://192.168.25.1:4840",  topic: "factory/sj/line5/plc1/data",  drive_count: 4}
+  - {name: "sj_line5_plc2",  profile: "sj", url: "opc.tcp://192.168.25.7:4840",  topic: "factory/sj/line5/plc2/data",  drive_count: 6}
+  - {name: "sj_line6_plc1",  profile: "sj", url: "opc.tcp://192.168.26.1:4840",  topic: "factory/sj/line6/plc1/data",  drive_count: 4}
+  - {name: "sj_line6_plc2",  profile: "sj", url: "opc.tcp://192.168.26.7:4840",  topic: "factory/sj/line6/plc2/data",  drive_count: 6}
+
+  - {name: "lh_zone3_plc1",  profile: "lh", url: "opc.tcp://192.168.3.1:4840",   topic: "factory/lh/zone3/plc1/data",  drive_count: 8}
+  - {name: "lh_zone3_plc2",  profile: "lh", url: "opc.tcp://192.168.3.11:4840",  topic: "factory/lh/zone3/plc2/data",  drive_count: 6}
+  - {name: "lh_zone4_plc1",  profile: "lh", url: "opc.tcp://192.168.4.1:4840",   topic: "factory/lh/zone4/plc1/data",  drive_count: 8}
+  - {name: "lh_zone4_plc2",  profile: "lh", url: "opc.tcp://192.168.4.11:4840",  topic: "factory/lh/zone4/plc2/data",  drive_count: 6}
+  - {name: "lh_zone7_plc1",  profile: "lh", url: "opc.tcp://192.168.7.1:4840",   topic: "factory/lh/zone7/plc1/data",  drive_count: 8}
+  - {name: "lh_zone7_plc2",  profile: "lh", url: "opc.tcp://192.168.7.11:4840",  topic: "factory/lh/zone7/plc2/data",  drive_count: 6}
+  - {name: "lh_zone8_plc1",  profile: "lh", url: "opc.tcp://192.168.8.1:4840",   topic: "factory/lh/zone8/plc1/data",  drive_count: 8}
+  - {name: "lh_zone8_plc2",  profile: "lh", url: "opc.tcp://192.168.8.11:4840",  topic: "factory/lh/zone8/plc2/data",  drive_count: 6}
+  - {name: "lh_zone10_plc1", profile: "lh", url: "opc.tcp://192.168.10.1:4840",  topic: "factory/lh/zone10/plc1/data", drive_count: 8}
+  - {name: "lh_zone10_plc2", profile: "lh", url: "opc.tcp://192.168.10.11:4840", topic: "factory/lh/zone10/plc2/data", drive_count: 6}
+  - {name: "lh_zone11_plc1", profile: "lh", url: "opc.tcp://192.168.11.1:4840",  topic: "factory/lh/zone11/plc1/data", drive_count: 8}
+  - {name: "lh_zone11_plc2", profile: "lh", url: "opc.tcp://192.168.11.11:4840", topic: "factory/lh/zone11/plc2/data", drive_count: 6}
+  - {name: "lh_zone13_plc1", profile: "lh", url: "opc.tcp://192.168.13.1:4840",  topic: "factory/lh/zone13/plc1/data", drive_count: 8}
+  - {name: "lh_zone13_plc2", profile: "lh", url: "opc.tcp://192.168.13.11:4840", topic: "factory/lh/zone13/plc2/data", drive_count: 6}
+  - {name: "lh_zone14_plc1", profile: "lh", url: "opc.tcp://192.168.14.1:4840",  topic: "factory/lh/zone14/plc1/data", drive_count: 8}
+  - {name: "lh_zone14_plc2", profile: "lh", url: "opc.tcp://192.168.14.11:4840", topic: "factory/lh/zone14/plc2/data", drive_count: 6}
+
+
+dingtalk:
+  enabled: true
+  webhook: "https://oapi.dingtalk.com/robot/send?access_token=d9b657c556f9354a5ef8be1ab74fd2f10ac1f258b3a32b5eb407ace78e262a18"
+  min_severity: "critical"
