@@ -43,3 +43,8 @@ certs/
 *.key
 *.crt
 *.pem
+
+# 备份文件
+*.pre-*
+*.bak
+*.bak.*
