@@ -48,3 +48,4 @@ certs/
 *.pre-*
 *.bak
 *.bak.*
+chroma_db/
