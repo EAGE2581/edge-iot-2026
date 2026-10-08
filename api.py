@@ -1,8 +1,4 @@
-"""EDGE-IOT-2026 REST API 服务。
-
-用法：
-    uvicorn api:app --reload --host 0.0.0.0 --port 8000
-"""
+"""EDGE-IOT-2026 REST API 服务（含 RAG 问答）。"""
 import asyncio
 import json
 import ssl
@@ -10,23 +6,30 @@ import time
 
 import paho.mqtt.client as mqtt
 from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
+from fastapi.responses import FileResponse
+from pydantic import BaseModel
 
 from app.config_loader import load_config, load_plcs
 from app.transports import make_influx
+from app.rag import RagEngine
 
 
 app = FastAPI(
     title="EDGE-IOT-2026 API",
-    description="工业物联网数据采集系统 · REST API",
-    version="2.0.0",
+    description="工业物联网数据采集系统 · REST API + RAG",
+    version="2.1.0",
 )
 
-# ── 全局状态 ──
 _cfg = None
 _influx_client = None
 ws_clients = set()
 main_loop = None
 mqtt_client = None
+rag_engine = None
+
+
+class AskRequest(BaseModel):
+    question: str
 
 
 def get_influx():
@@ -34,14 +37,11 @@ def get_influx():
     if _influx_client is None:
         _cfg = load_config("config.yaml")
         _influx_client, _ = make_influx(
-            _cfg["influx"]["url"],
-            _cfg["influx"]["token"],
-            _cfg["influx"]["org"],
+            _cfg["influx"]["url"], _cfg["influx"]["token"], _cfg["influx"]["org"],
         )
     return _influx_client, _cfg
 
 
-# ── MQTT → WebSocket 桥接 ──
 def on_mqtt_message(client, userdata, msg):
     try:
         data = json.loads(msg.payload.decode("utf-8"))
@@ -67,9 +67,14 @@ async def broadcast(data):
 
 @app.on_event("startup")
 async def on_startup():
-    global main_loop, mqtt_client
+    global main_loop, mqtt_client, rag_engine
     main_loop = asyncio.get_running_loop()
 
+    # ── RAG 引擎（会加载 BGE 模型，约 5~10 秒）
+    print("[api] 初始化 RAG 引擎...")
+    rag_engine = RagEngine()
+
+    # ── MQTT 客户端
     cfg = load_config("config.yaml")
     mqtt_client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 
@@ -82,10 +87,14 @@ async def on_startup():
         mqtt_client.tls_set_context(ctx)
 
     mqtt_client.on_message = on_mqtt_message
-    mqtt_client.connect(cfg["mqtt"]["host"], cfg["mqtt"]["port"], 60)
-    mqtt_client.subscribe("factory/+/+/+/data", qos=1)
-    mqtt_client.loop_start()
-    print("[api] MQTT 已连接，订阅 factory/+/+/+/data")
+    try:
+        mqtt_client.connect(cfg["mqtt"]["host"], cfg["mqtt"]["port"], 60)
+        mqtt_client.subscribe("factory/+/+/+/data", qos=1)
+        mqtt_client.loop_start()
+        print("[api] MQTT 已连接，订阅 factory/+/+/+/data")
+    except Exception as e:
+        print(f"[api] MQTT 连接失败（RAG 仍可用）：{e}")
+        mqtt_client = None
 
 
 @app.on_event("shutdown")
@@ -96,19 +105,22 @@ async def on_shutdown():
         mqtt_client.disconnect()
 
 
-# ── REST 接口 ──
 @app.get("/")
 def root():
     return {"service": "edge-iot-2026", "status": "ok"}
 
 
+@app.get("/chat")
+def chat_page():
+    """返回聊天网页。"""
+    return FileResponse("chat.html", media_type="text/html")
+
+
 @app.get("/api/health")
 def health():
     return {
-        "status": "healthy",
-        "timestamp": int(time.time()),
-        "version": "2.0.0",
-        "service": "edge-iot-2026-api",
+        "status": "healthy", "timestamp": int(time.time()),
+        "version": "2.1.0", "service": "edge-iot-2026-api",
     }
 
 
@@ -119,13 +131,8 @@ def list_devices():
     for p in plcs:
         parts = p["name"].split("_")
         result.append({
-            "name": p["name"],
-            "site": parts[0],
-            "line": parts[1],
-            "plc": parts[2],
-            "drive_count": p["drive_count"],
-            "url": p["url"],
-            "topic": p["topic"],
+            "name": p["name"], "site": parts[0], "line": parts[1], "plc": parts[2],
+            "drive_count": p["drive_count"], "url": p["url"], "topic": p["topic"],
         })
     return {"count": len(result), "devices": result}
 
@@ -174,7 +181,21 @@ from(bucket: "{bucket}")
     }
 
 
-# ── WebSocket 接口 ──
+@app.post("/api/ask")
+def ask(req: AskRequest):
+    """RAG 问答：检索报警字典 + DeepSeek 生成分析。"""
+    if rag_engine is None:
+        raise HTTPException(status_code=503, detail="RAG 引擎尚未就绪")
+    q = (req.question or "").strip()
+    if not q:
+        raise HTTPException(status_code=400, detail="问题不能为空")
+    try:
+        result = rag_engine.ask(q)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"RAG 失败: {e}")
+    return result
+
+
 @app.websocket("/ws/realtime")
 async def ws_realtime(websocket: WebSocket):
     await websocket.accept()
