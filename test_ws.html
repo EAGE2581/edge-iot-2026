@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>WebSocket 测试</title>
+<style>
+  body { font-family: monospace; padding: 20px; background: #0f172a; color: #e2e8f0; }
+  h1 { color: #7dd3fc; }
+  #status { padding: 8px 14px; border-radius: 6px; display: inline-block; margin-bottom: 16px; }
+  .connected { background: #065f46; color: #d1fae5; }
+  .disconnected { background: #991b1b; color: #fee2e2; }
+  #log { background: #1e293b; padding: 16px; border-radius: 8px; max-height: 400px;
+         overflow-y: auto; font-size: 14px; line-height: 1.8; }
+  .entry { padding: 4px 0; border-bottom: 1px solid #334155; }
+</style>
+</head>
+<body>
+<h1>WebSocket 测试</h1>
+<div id="status" class="disconnected">未连接</div>
+<div id="log"></div>
+
+<script>
+const status = document.getElementById('status');
+const log = document.getElementById('log');
+
+function addLog(msg) {
+  const div = document.createElement('div');
+  div.className = 'entry';
+  div.textContent = new Date().toLocaleTimeString() + '  ' + msg;
+  log.prepend(div);
+}
+
+const ws = new WebSocket('ws://localhost:8000/ws/test');
+
+ws.onopen = () => {
+  status.textContent = '已连接';
+  status.className = 'connected';
+  addLog('连接成功');
+};
+
+ws.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  addLog(`counter=${data.counter}  value=${data.value}  ${data.message}`);
+};
+
+ws.onclose = () => {
+  status.textContent = '已断开';
+  status.className = 'disconnected';
+  addLog('连接关闭');
+};
+
+ws.onerror = (err) => {
+  addLog('错误: ' + err.message);
+};
+</script>
+</body>
+</html>

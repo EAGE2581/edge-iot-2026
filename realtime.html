@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>EDGE-IOT 实时数据</title>
+<style>
+  body { font-family: -apple-system, sans-serif; padding: 20px; background: #0f172a; color: #e2e8f0; }
+  h1 { color: #7dd3fc; }
+  #status { padding: 6px 12px; border-radius: 6px; display: inline-block; margin-bottom: 16px; font-size: 14px; }
+  .connected { background: #065f46; color: #d1fae5; }
+  .disconnected { background: #991b1b; color: #fee2e2; }
+  .card { background: #1e293b; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+  .card h2 { color: #7dd3fc; margin: 0 0 12px 0; font-size: 16px; }
+  .meta { color: #94a3b8; font-size: 12px; margin-bottom: 10px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #334155; color: #cbd5e1; padding: 6px 10px; text-align: left; }
+  td { padding: 5px 10px; border-bottom: 1px solid #334155; font-family: monospace; }
+  .fault { color: #fca5a5; font-weight: bold; }
+  .normal { color: #86efac; }
+</style>
+</head>
+<body>
+<h1>EDGE-IOT-2026 · 实时数据</h1>
+<div id="status" class="disconnected">未连接</div>
+<div id="cards"></div>
+
+<script>
+const status = document.getElementById('status');
+const cards = document.getElementById('cards');
+
+// 每台 PLC 的最新数据
+const plcData = {};   // {plc_name: {timestamp, values}}
+
+const ws = new WebSocket('ws://localhost:8000/ws/realtime');
+
+ws.onopen = () => {
+  status.textContent = '已连接 · 等待数据...';
+  status.className = 'connected';
+};
+
+ws.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  const plc = data.plc;
+  if (!plc) return;
+
+  plcData[plc] = data;
+  render();
+};
+
+ws.onclose = () => {
+  status.textContent = '已断开';
+  status.className = 'disconnected';
+};
+
+function render() {
+  cards.innerHTML = '';
+
+  for (const plc in plcData) {
+    const frame = plcData[plc];
+    const values = frame.values;
+    const ts = new Date(frame.timestamp).toLocaleTimeString();
+
+    // 按变频器分组
+    const drives = {};
+    for (const key in values) {
+      const m = key.match(/^(drive_\d+)_(.+)$/);
+      if (!m) continue;
+      const [, d, f] = m;
+      if (!drives[d]) drives[d] = {};
+      drives[d][f] = values[key];
+    }
+
+    // 建卡片
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    let html = `<h2>${plc}</h2>
+      <div class="meta">最新时间: ${ts} · 变频器: ${Object.keys(drives).length} 台</div>
+      <table>
+        <tr><th>变频器</th><th>状态字</th><th>电流(A)</th><th>转速</th><th>故障码</th></tr>`;
+
+    for (const d in drives) {
+      const v = drives[d];
+      const fault = v.fault_code || 0;
+      const faultCls = fault !== 0 ? 'fault' : 'normal';
+      // 电流换算: 原始值 / 16384 * 16
+      const current = ((v.iatst_glatt || 0) / 16384 * 16).toFixed(2);
+      const speed = ((v.nist_a || 0) / 16384 * 1500).toFixed(0);
+
+      html += `<tr>
+        <td>${d}</td>
+        <td>${v.zsw1 || 0}</td>
+        <td>${current}</td>
+        <td>${speed}</td>
+        <td class="${faultCls}">${fault}</td>
+      </tr>`;
+    }
+
+    html += '</table>';
+    card.innerHTML = html;
+    cards.appendChild(card);
+  }
+}
+</script>
+</body>
+</html>
