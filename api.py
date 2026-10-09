@@ -1,4 +1,9 @@
-"""EDGE-IOT-2026 REST API 服务（含 RAG 问答）。"""
+"""EDGE-IOT-2026 REST API 服务（含 RAG 问答）。
+
+关键点：
+- RAG 初始化失败不阻断 API 启动，走 503 降级
+- MQTT 连接失败也不阻断
+"""
 import asyncio
 import json
 import ssl
@@ -17,7 +22,7 @@ from app.rag import RagEngine
 app = FastAPI(
     title="EDGE-IOT-2026 API",
     description="工业物联网数据采集系统 · REST API + RAG",
-    version="2.1.0",
+    version="2.1.1",
 )
 
 _cfg = None
@@ -26,6 +31,7 @@ ws_clients = set()
 main_loop = None
 mqtt_client = None
 rag_engine = None
+rag_error = None          # 记录 RAG 初始化失败的原因
 
 
 class AskRequest(BaseModel):
@@ -67,14 +73,21 @@ async def broadcast(data):
 
 @app.on_event("startup")
 async def on_startup():
-    global main_loop, mqtt_client, rag_engine
+    global main_loop, mqtt_client, rag_engine, rag_error
     main_loop = asyncio.get_running_loop()
 
-    # ── RAG 引擎（会加载 BGE 模型，约 5~10 秒）
-    print("[api] 初始化 RAG 引擎...")
-    rag_engine = RagEngine()
+    # ── RAG 延迟初始化：失败降级，不阻断 API
+    try:
+        print("[api] 初始化 RAG 引擎...")
+        rag_engine = RagEngine()
+        rag_error = None
+    except Exception as e:
+        rag_engine = None
+        rag_error = str(e)
+        print(f"[api] RAG 初始化失败（服务继续运行）：{e}")
+        print("[api] /api/ask 将返回 503")
 
-    # ── MQTT 客户端
+    # ── MQTT 连接：失败也不阻断
     cfg = load_config("config.yaml")
     mqtt_client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 
@@ -101,8 +114,11 @@ async def on_startup():
 async def on_shutdown():
     global mqtt_client
     if mqtt_client:
-        mqtt_client.loop_stop()
-        mqtt_client.disconnect()
+        try:
+            mqtt_client.loop_stop()
+            mqtt_client.disconnect()
+        except Exception:
+            pass
 
 
 @app.get("/")
@@ -112,15 +128,20 @@ def root():
 
 @app.get("/chat")
 def chat_page():
-    """返回聊天网页。"""
     return FileResponse("chat.html", media_type="text/html")
 
 
 @app.get("/api/health")
 def health():
+    """健康检查始终可用，即使 RAG / MQTT 挂了。"""
     return {
-        "status": "healthy", "timestamp": int(time.time()),
-        "version": "2.1.0", "service": "edge-iot-2026-api",
+        "status": "healthy",
+        "timestamp": int(time.time()),
+        "version": "2.1.1",
+        "service": "edge-iot-2026-api",
+        "rag_ready": rag_engine is not None,
+        "rag_error": rag_error,
+        "mqtt_connected": mqtt_client is not None,
     }
 
 
@@ -139,6 +160,11 @@ def list_devices():
 
 @app.get("/api/devices/{plc_name}/latest")
 def get_latest(plc_name: str):
+    # 简单白名单：只允许字母/数字/下划线
+    import re
+    if not re.fullmatch(r"[A-Za-z0-9_]+", plc_name):
+        raise HTTPException(status_code=400, detail="非法 PLC 名称")
+
     client, cfg = get_influx()
     query_api = client.query_api()
     bucket = cfg["influx"]["bucket"]
@@ -183,9 +209,11 @@ from(bucket: "{bucket}")
 
 @app.post("/api/ask")
 def ask(req: AskRequest):
-    """RAG 问答：检索报警字典 + DeepSeek 生成分析。"""
     if rag_engine is None:
-        raise HTTPException(status_code=503, detail="RAG 引擎尚未就绪")
+        raise HTTPException(
+            status_code=503,
+            detail=f"RAG 引擎不可用：{rag_error or '未初始化'}",
+        )
     q = (req.question or "").strip()
     if not q:
         raise HTTPException(status_code=400, detail="问题不能为空")

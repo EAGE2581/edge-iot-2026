@@ -9,11 +9,6 @@ from .converter import convert
 
 
 def make_mqtt(host, port=1883, keepalive=60, tls_cfg=None):
-    """建 MQTT 客户端并连接。
-
-    tls_cfg 为 None 时用明文连接；
-    否则传 dict，包含 enabled/ca/cert/key 四个字段。
-    """
     client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 
     if tls_cfg and tls_cfg.get("enabled"):
@@ -29,15 +24,6 @@ def make_mqtt(host, port=1883, keepalive=60, tls_cfg=None):
     return client
 
 
-
-
-
-
-
-
-
-
-
 def make_influx(url, token, org):
     client = InfluxDBClient(url=url, token=token, org=org)
     write_api = client.write_api(write_options=SYNCHRONOUS)
@@ -45,7 +31,7 @@ def make_influx(url, token, org):
 
 
 def publish_mqtt(mqtt_client, topic, data):
-    if not mqtt_client.is_connected():
+    if mqtt_client is None or not mqtt_client.is_connected():
         return False
     try:
         result = mqtt_client.publish(topic, json.dumps(data, ensure_ascii=False))
@@ -55,10 +41,13 @@ def publish_mqtt(mqtt_client, topic, data):
 
 
 def write_influx(write_api, bucket, plc_cfg, tag_map, data):
+    """把一次采集的所有变频器构造成 list[Point]，一次性写入。"""
     try:
         rated = plc_cfg.get("rated_current", 16.0)
         drive_count = len(plc_cfg["udt_starts"])
+        ts_ns = data["timestamp"] * 1000000
 
+        points = []
         for i in range(drive_count):
             drive = f"drive_{i+1}"
             point = (
@@ -66,7 +55,6 @@ def write_influx(write_api, bucket, plc_cfg, tag_map, data):
                 .tag("plc", plc_cfg["name"])
                 .tag("drive", drive)
             )
-
             has_field = False
             for key, meta in tag_map.items():
                 if not key.startswith(f"{drive}_"):
@@ -79,9 +67,11 @@ def write_influx(write_api, bucket, plc_cfg, tag_map, data):
                 has_field = True
 
             if has_field:
-                point = point.time(data["timestamp"] * 1000000)
-                write_api.write(bucket=bucket, record=point)
+                points.append(point.time(ts_ns))
 
+        if points:
+            # 一次 HTTP POST 写整批，网络开销降到 1/N
+            write_api.write(bucket=bucket, record=points)
         return True
     except Exception as e:
         print(f"[!] InfluxDB 写入失败: {e}")
